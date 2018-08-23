@@ -1,0 +1,43 @@
+users:<name>
+  |
+   - password: password
+
+users:electrux:notebooks
+  |
+   - nb1
+  |
+   - nb2, ...
+
+users:<name>:notebooks:<nb1>
+  |
+   - date_created: date
+  |
+   - date_modified: mod_date
+
+users:<name>:notebooks:<nb1>:titles
+  |
+   - t1
+  |
+   - t2
+
+users:<name>:notebooks:<nb1>:titles:<t1>
+  |
+   - info: info
+  |
+   - date: date
+  |
+   - accomplish_date: date
+  |
+   - priority: prio
+		  |
+		   - chill
+		  |
+		   - cool
+		  |
+		   - important
+		  |
+		   - essential
+		  |
+		   - sweating
+		  |
+		   - fuck
