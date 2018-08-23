@@ -1,0 +1,24 @@
+name: todo-client
+version: 0.0.1
+lang: c
+std: 11
+compile_flags: -O2
+vars:
+  []
+license: bsd3
+author:
+  name: Electrux
+  email: ElectruxRedsworth@gmail.com
+libs:
+  []
+builds:
+  - name: task
+    type: bin
+    inc_flags: ""
+    lib_flags: ""
+    pre_exec: ""
+    main_src: src/main.c
+    other_src:
+      - src/(.*).c
+    exclude:
+      []
