@@ -10,7 +10,10 @@ author:
   name: Electrux
   email: ElectruxRedsworth@gmail.com
 libs:
-  []
+  - name: hiredis
+    version: 0.13.3
+    inc_flags: ""
+    lib_flags: -lhiredis
 builds:
   - name: task
     type: bin
