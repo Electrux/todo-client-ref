@@ -18,6 +18,7 @@
 #include "../../include/strmanip.h"
 #include "../../include/todo/help.h"
 #include "../../include/todo/notebook.h"
+#include "../../include/todo/note.h"
 
 #include "../../include/todo/todo_worker.h"
 
@@ -59,11 +60,11 @@ int todo_worker( redisContext * c )
 				goto loop_end;
 			}
 			if( IS( str_vec_get( strs, 1 ), "notebooks, nbs" ) ) {
-				display_notebook( c );
+				handle_display_notebook( c );
 				goto loop_end;
 			}
 			if( IS( str_vec_get( strs, 1 ), "notes, ns" ) ) {
-				// TODO
+				handle_display_note( c, strs, curr_nb );
 				goto loop_end;
 			}
 		}
@@ -78,8 +79,7 @@ int todo_worker( redisContext * c )
 				goto loop_end;
 			}
 			if( IS( str_vec_get( strs, 1 ), "note, n" ) ) {
-				//handle_create_note( c, strs );
-				// TODO
+				handle_create_note( c, strs, curr_nb );
 				goto loop_end;
 			}
 		}

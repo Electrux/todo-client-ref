@@ -16,6 +16,7 @@
 
 #define MAX_STR_LEN 1024
 #define TIME_STR_LEN 50
+#define MAX_PRIO_LEN 30
 
 #define LOG( ... ) fprintf( stderr, __VA_ARGS__ )
 

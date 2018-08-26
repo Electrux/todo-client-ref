@@ -23,8 +23,17 @@ void str_split( struct str_vec * svec, const char * str, const char delim )
 	int tmp_ctr = 0;
 	int len = strlen( str );
 
+	int in_quote = 0;
 	for( int i = 0; i < len; ++i ) {
-		if( str[ i ] == delim ) {
+		if( str[ i ] == '\"' && in_quote != 1 ) {
+			in_quote = ( in_quote ) ? 0 : 2;
+			continue;
+		}
+		if( str[ i ] == '\'' && in_quote != 2 ) {
+			in_quote = ( in_quote ) ? 0 : 1;
+			continue;
+		}
+		if( str[ i ] == delim && !in_quote ) {
 			if( tmp_ctr <= 0 ) continue;
 			tmp[ tmp_ctr ] = '\0';
 			str_vec_add( svec, tmp );

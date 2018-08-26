@@ -14,21 +14,16 @@
 #include <strings.h>
 #include <time.h>
 
-static inline bool is_whitespc( const char c ) { return c == ',' || c == ' '; }
+static inline bool is_whitespc( const char c ) { return c == ',' || c == ' ' || c == '\0'; }
 
 bool find_in( const char * of, const char * values, bool is_exact_match )
 {
         int len_val = strlen( values );
         char tmp_str[ 100 ];
         int tmp_ctr = 0;
-        for( int i = 0; i < len_val; ++i ) {
-                if( is_whitespc( values[ i ] ) || i == len_val - 1 ) {
+        for( int i = 0; i <= len_val; ++i ) {
+                if( is_whitespc( values[ i ] ) ) {
                         if( tmp_ctr == 0 ) continue;
-                        if( i == len_val - 1 && !is_whitespc( values[ i ] ) ) tmp_str[ tmp_ctr++ ] = values[ i ];
-                        if( is_whitespc( values[ i ] ) && i < len_val - 1 && !is_whitespc( values[ i + 1 ] ) ) {
-                                tmp_str[ tmp_ctr++ ] = values[ i ];
-                                continue;
-                        }
                         tmp_str[ tmp_ctr ] = '\0';
                         if( is_exact_match ) {
                                 if( strcasecmp( of, tmp_str ) == 0 ) return true;
