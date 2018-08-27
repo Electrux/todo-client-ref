@@ -24,6 +24,12 @@ void handle_create_note( redisContext * c, const struct str_vec * svec, char * c
 		return;
 	}
 
+	if( str_vec_get_count( svec ) == 5 && strlen( curr_nb ) == 0 ) {
+		LOG( "Message: Only 3 arguments specified, but there is no current notebook selected\n" );
+		printf( "Error: No current notebook selected!\n" );
+		return;
+	}
+
 	int base_pos;
 	const char * nb;
 	if( str_vec_get_count( svec ) == 5 ) {
@@ -35,11 +41,6 @@ void handle_create_note( redisContext * c, const struct str_vec * svec, char * c
 		nb = str_vec_get( svec, base_pos + 1 );
 	}
 
-	if( str_vec_get_count( svec ) == 5 && strlen( curr_nb ) == 0 ) {
-		LOG( "Message: Only 3 arguments specified, but there is no current notebook selected\n" );
-		printf( "Error: No current notebook selected!\n" );
-		return;
-	}
 	const char * note_title = str_vec_get( svec, base_pos + 2 );
 	const char * note_info = str_vec_get( svec, base_pos + 3 );
 	const char * note_prio = str_vec_get( svec, base_pos + 4 );

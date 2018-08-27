@@ -69,12 +69,12 @@ void handle_create_notebook( redisContext * c, const struct str_vec * svec, char
 	freeReplyObject( repl );
 
 	repl = redisCommand( c, "RPUSH notebooks %s", nb );
-	if( repl->integer == 1 ) {
+	if( repl->integer > 0 ) {
 		LOG( "Message: Notebook %s is added successfully\n", nb );
 	}
 	else {
 		strcpy( curr_nb, "\0" );
-		printf( "Notebook creation failed, returned: %lld", repl->integer );
+		printf( "Notebook creation failed, returned: %lld\n", repl->integer );
 		freeReplyObject( repl );
 		return;
 	}

@@ -57,47 +57,80 @@ int todo_worker( redisContext * c )
 			if( str_vec_get_count( strs ) < 2 ) {
 				LOG( "Message: Usage: (l)ist <notebooks/notes>\n" );
 				printf( "Usage: (l)ist <notebooks/notes>\n" );
-				goto loop_end;
 			}
-			if( IS( str_vec_get( strs, 1 ), "notebooks, nbs" ) ) {
-				handle_display_notebook( c );
-				goto loop_end;
+			else if( IS( str_vec_get( strs, 1 ), "notebooks, nbs" ) ) {
+				handle_display_notebooks( c );
 			}
-			if( IS( str_vec_get( strs, 1 ), "notes, ns" ) ) {
+			else if( IS( str_vec_get( strs, 1 ), "notes, ns" ) ) {
 				handle_display_note( c, strs, curr_nb );
-				goto loop_end;
+			}
+			else {
+				LOG( "Message: Invalid argument provided to list command\n" );
+				printf( "Error: Invalid argument %s provided to list command\n", str_vec_get( strs, 1 ) );
 			}
 		}
-		if( IS( str_vec_get( strs, 0 ), "c, create" ) ) {
+		else if( IS( str_vec_get( strs, 0 ), "c, create" ) ) {
 			if( str_vec_get_count( strs ) < 2 ) {
 				LOG( "Message: Usage: (c)reate <notebook/note>\n" );
 				printf( "Usage: (l)ist <notebook/note>\n" );
-				goto loop_end;
 			}
-			if( IS( str_vec_get( strs, 1 ), "notebook, nb" ) ) {
+			else if( IS( str_vec_get( strs, 1 ), "notebook, nb" ) ) {
 				handle_create_notebook( c, strs, curr_nb );
-				goto loop_end;
 			}
-			if( IS( str_vec_get( strs, 1 ), "note, n" ) ) {
+			else if( IS( str_vec_get( strs, 1 ), "note, n" ) ) {
 				handle_create_note( c, strs, curr_nb );
-				goto loop_end;
+			}
+			else {
+				LOG( "Message: Invalid argument provided to create command\n" );
+				printf( "Error: Invalid argument %s provided to create command\n", str_vec_get( strs, 1 ) );
 			}
 		}
-		if( IS( str_vec_get( strs, 0 ), "r, rem, remove, d, del, delete" ) ) {
+		else if( IS( str_vec_get( strs, 0 ), "r, rem, remove, d, del, delete" ) ) {
 			if( str_vec_get_count( strs ) < 2 ) {
 				LOG( "Message: Usage: ((d)el)ete/((r)em)ove <notebook/note>\n" );
 				printf( "Usage: ((d)el)ete/((r)em)ove <notebook/note>\n" );
-				goto loop_end;
 			}
-			if( IS( str_vec_get( strs, 1 ), "notebook, nb" ) ) {
+			else if( IS( str_vec_get( strs, 1 ), "notebook, nb" ) ) {
 				handle_delete_notebook( c, strs, curr_nb );
-				goto loop_end;
 			}
-			if( IS( str_vec_get( strs, 1 ), "note, n" ) ) {
-				//handle_delete_note( c, strs );
-				// TODO
-				goto loop_end;
+			else if( IS( str_vec_get( strs, 1 ), "note, n" ) ) {
+				handle_delete_note( c, strs, curr_nb );
 			}
+			else {
+				LOG( "Message: Invalid argument provided to remove command\n" );
+				printf( "Error: Invalid argument %s provided to remove command\n", str_vec_get( strs, 1 ) );
+			}
+		}
+		else if( IS( str_vec_get( strs, 0 ), "s, sel, select" ) ) {
+			if( str_vec_get_count( strs ) < 2 ) {
+				LOG( "Message: Usage: ((s)el)ect <notebook>\n" );
+				printf( "Usage: ((s)el)ect <notebook>" );
+			}
+			else {
+				handle_select_notebook( c, strs, curr_nb );
+			}
+		}
+		else if( IS( str_vec_get( strs, 0 ), "a, alter, m, mod, modify" ) ) {
+			if( str_vec_get_count( strs ) < 2 ) {
+				LOG( "Message: Usage: (a)lter/((m)od)ify <notebook> <note>\n" );
+				printf( "Usage: (a)lter/((m)od)ify <notebook> <note>\n" );
+			}
+			else {
+				handle_alter_note( c, strs, curr_nb );
+			}
+		}
+		else if( IS( str_vec_get( strs, 0 ), "f, fin, finish" ) ) {
+			if( str_vec_get_count( strs ) < 2 ) {
+				LOG( "Message: Usage: ((f)in)ish <notebook> <note>\n" );
+				printf( "Usage: ((f)in)ish <notebook> <note>\n" );
+			}
+			else {
+				handle_set_accompl_date_note( c, strs, curr_nb );
+			}
+		}
+		else {
+			LOG( "Error: Invalid command %s\n", str_vec_get( strs, 0 ) );
+			printf( "Error: Invalid command: %s\n", str_vec_get( strs, 0 ) );
 		}
 
 loop_end:

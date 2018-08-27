@@ -17,6 +17,7 @@
 
 void handle_create_notebook( redisContext * c, const struct str_vec * svec, char * curr_nb );
 void handle_delete_notebook( redisContext * c, const struct str_vec * svec, char * curr_nb );
-void handle_display_notebook( redisContext * c );
+void handle_select_notebook( redisContext * c, const struct str_vec * svec, char * curr_nb );
+void handle_display_notebooks( redisContext * c );
 
 #endif // TODO_NOTEBOOK_H

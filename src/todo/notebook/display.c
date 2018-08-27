@@ -17,7 +17,7 @@
 
 #include "../../../include/todo/notebook.h"
 
-void handle_display_notebook( redisContext * c )
+void handle_display_notebooks( redisContext * c )
 {
 	redisReply * repl;
 	bool nb_exists = true;

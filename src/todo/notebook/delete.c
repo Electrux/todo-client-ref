@@ -33,9 +33,9 @@ void handle_delete_notebook( redisContext * c, const struct str_vec * svec, char
 	redisReply * repl;
 	repl = redisCommand( c, "EXISTS notebooks:%s", nb );
 	if( repl->integer != 1 ) {
-		strcpy( curr_nb, "\0" );
 		LOG( "Notebook %s does not exist\n", nb );
 		printf( "Error: Notebook %s does not exist!\n", nb );
+		if( using_curr_nb ) strcpy( curr_nb, "\0" );
 		freeReplyObject( repl );
 		return;
 	}
